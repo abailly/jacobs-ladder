@@ -37,6 +37,30 @@ Rules:
 - Using 1 as a *selector* for "elements" in objects (eg. members of a set)
 - Uniqueness up-to isomorphisms
 
+# Exponential
+
+- representing *function abstraction* in a category
+- let A, B be objects, we can form B^A the *exponential object* and a
+  function eval : B^A x A -> B s.t. for any f: C x A -> B, f
+  factorizes uniquely through eval:
+  
+     f = ev ⋅ (λf × ι)
+	 
+- This also says that one can form  λf: C -> B^A the function that
+  that transforms a two-argument function (here C x A -> B) into a
+  function from one argument to another function. We cannot however
+  leave A in the equation is it provides the basis for the computation
+  of the limit (??)
+
+# Categorical Abstract Machine 
+
+- Representing computation within a category : The Categorical Abstract Machine
+(Cousineau et al., 1987) allows compiling *strict* functional programs
+into an intermediate form suitable for compilation to low-level
+languages (eg. C, assembly...)
+- Rests on the concept of a cartesian closed category: A category with
+  all limits and exponentiation.
+
 # Case Study: A proxy HTTP server
 
 - Define an HTTP Service for retrieving content of files from a uid
@@ -53,7 +77,22 @@ Rules:
   f: a -> b => Ff : Fa -> Fb 
 - Down the ladder: Defining parametric data structures (eg. type constructors) like Lists, Sets, Streams...
 - Exercise: The functor of functions with errors
- 
+
+# Applicative Functors
+
+- <$> : a -> b -> (f a -> f b) : this is standard "functor
+  application"
+- <*> : f (a -> b) -> (f a -> f b) : allows working on multiple arity
+  functions, _push argument application inside functor_
+
+# Monads
+
+- Article from Erik Meijer about LINQ: http://cacm.acm.org/magazines/2011/10/131398-the-world-according-to-linq/fulltext
+- LINQ uses monads' *flatMap* (aka. *bind*) to construct "queries"
+  over various datatypes, including relational structures 
+- the various keywords of the SQLish language (SELECT, FROM, WHERE)
+  are just instances of (a -> m b) which are chained in the monad
+
 # Natural transformations
 
 - Mappings *between functors*
@@ -93,3 +132,6 @@ Caveats:
   constructions for scala programs
 - Category in java: representing cat.th. in JAva
 - Haskell: pioneer in applied cat.th. 
+
+- http://hseeberger.wordpress.com/2011/01/31/applicatives-are-generalized-functors/
+- http://aabs.wordpress.com/2008/05/29/functional-programming-lessons-from-high-school-arithmetic/
