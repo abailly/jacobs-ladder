@@ -1,0 +1,238 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifxetex
+  \usepackage{fontspec,xltxtra,xunicode}
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+\else
+  \ifluatex
+    \usepackage{fontspec}
+    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \else
+    \usepackage[utf8]{inputenc}
+  \fi
+\fi
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\title{Jacob's Ladder}
+\author{Arnaud Bailly - Christophe Thibaut}
+\date{01/12/2011}
+
+\begin{document}
+\maketitle
+
+\section{Category Theory Crash course}
+
+\begin{itemize}
+\item
+  What is a category?
+\end{itemize}
+\section{``Well-known'' (or not so well-known) Categories}
+
+\begin{itemize}
+\item
+  Some examples of Categories: Set, monoid, poset\ldots{}
+\item
+  Hask: Category of Haskell types
+\item
+  CAM: Categorical abstract machine, a practical compilation scheme for
+  ML languages based on standard categorical constructs
+\end{itemize}
+\section{Warmer: Deconstructing a function categorically}
+
+Rules: - Use only arrows and objects' names (ie. do not describe the
+internal structure of objects) - Assume we work in a well-behaved
+category - Refine a function till you drop
+
+\section{Constructions In Categories}
+
+\section{Product: Tupling objects and functions}
+
+\begin{itemize}
+\item
+  Down the ladder: Define records and structures, apply functions on
+  them
+\end{itemize}
+\section{Sums: Choosing between alternatives}
+
+\begin{itemize}
+\item
+  Down the ladder: Error handling, making partial functions total
+\item
+  Eg. Exceptions in Java/C\#
+\end{itemize}
+\section{Special objects: 0 and 1}
+
+\begin{itemize}
+\item
+  \emph{0}: Initial object, one and only one arrow from 0 to any other
+  object
+\item
+  \emph{1}: Terminal object, one and only one arrow from any other
+  object to 1
+\item
+  Using 1 as a \emph{selector} for ``elements'' in objects (eg. members
+  of a set)
+\item
+  Uniqueness up-to isomorphisms
+\end{itemize}
+\section{Exponential}
+
+\begin{itemize}
+\item
+  representing \emph{function abstraction} in a category
+\item
+  let A, B be objects, we can form B\^{}A the \emph{exponential object}
+  and a function eval : B\^{}A x A -\textgreater{} B s.t. for any f: C x
+  A -\textgreater{} B, f factorizes uniquely through eval:
+
+  $f = ev ∘ (λf × ι)$
+\item
+  This also says that one can form λf: C -\textgreater{} B\^{}A the
+  function that that transforms a two-argument function (here C x A
+  -\textgreater{} B) into a function from one argument to another
+  function. We cannot however leave A in the equation is it provides the
+  basis for the computation of the limit (??)
+\end{itemize}
+\section{Categorical Abstract Machine}
+
+\begin{itemize}
+\item
+  Representing computation within a category : The Categorical Abstract
+  Machine (Cousineau et al., 1987) allows compiling \emph{strict}
+  functional programs into an intermediate form suitable for compilation
+  to low-level languages (eg. C, assembly\ldots{})
+\item
+  Rests on the concept of a cartesian closed category: A category with
+  all limits and exponentiation.
+\end{itemize}
+\section{Case Study: A proxy HTTP server}
+
+\begin{itemize}
+\item
+  Define an HTTP Service for retrieving content of files from a uid
+  stored in a repository
+\end{itemize}
+\section{Constructions Over Categories}
+
+\begin{itemize}
+\item
+  Up the ladder: applying categorical concepts to categorical constructs
+\item
+  Yes, the category of categories exists! (with some
+  restrictions\ldots{})
+\end{itemize}
+\section{Functors}
+
+\begin{itemize}
+\item
+  Mappings from objects to objects s.t. composition of functions is
+  preserved f: a -\textgreater{} b =\textgreater{} Ff : Fa
+  -\textgreater{} Fb
+\item
+  Down the ladder: Defining parametric data structures (eg. type
+  constructors) like Lists, Sets, Streams\ldots{}
+\item
+  Exercise: The functor of functions with errors
+\end{itemize}
+\section{Applicative Functors}
+
+\begin{itemize}
+\item
+  \textless{}\$\textgreater{} : a -\textgreater{} b -\textgreater{} (f a
+  -\textgreater{} f b) : this is standard ``functor application''
+\item
+  \textless{}*\textgreater{} : f (a -\textgreater{} b) -\textgreater{}
+  (f a -\textgreater{} f b) : allows working on multiple arity
+  functions, \emph{push argument application inside functor}
+\end{itemize}
+\section{Monads}
+
+\begin{itemize}
+\item
+  Article from Erik Meijer about LINQ:
+  http://cacm.acm.org/magazines/2011/10/131398-the-world-according-to-linq/fulltext
+\item
+  LINQ uses monads' \emph{flatMap} (aka. \emph{bind}) to construct
+  ``queries'' over various datatypes, including relational structures
+\item
+  the various keywords of the SQLish language (SELECT, FROM, WHERE) are
+  just instances of (a -\textgreater{} m b) which are chained in the
+  monad
+\end{itemize}
+\section{Natural transformations}
+
+\begin{itemize}
+\item
+  Mappings \emph{between functors}
+\item
+  Down the ladder: Functions on lists that change the ``shape'' of the
+  list without changing the elements in it (reverse, inits,
+  tails\ldots{})
+\item
+  Down the ladder:
+\item
+  I/O on HTTP messages, REST interface of a service
+\item
+  A transformation need to be an isomorphism (ie. invertible), it may
+  ``forget'' some aspects of the functors it maps
+\end{itemize}
+\section{Conclusion}
+
+Relating categorical thinking to agile design principles: - \emph{Simple
+design}: only arrows and (abstract) objects, no patterns, no frameworks,
+no fancy coding tricks - \emph{No BDUF}: Designing functions first: What
+will you do with your data/objects?, refrain from defining the
+implementation first, abstract from details to prevent data lock-in -
+\emph{Removing duplication}: Generalizing to higher-levels allow DRY to
+apply not only on functions but also on control structures and ``shape''
+of the system - Focusing on the \emph{Domain}: First define core arrows,
+those that are part of the domain you are working on ; then apply
+functors and transformations to \emph{lift} from core domain to a more
+complex behaviours (error handling, logging, interfacing with the
+outside world)
+
+Caveats: - Do not talk of this conference to your local mathematician,
+its hair might go white earlier than expected! - True Cat.Th. is
+insanely complex, it has connections to all of mathematics (logic,
+topology, algebra, analysis) and is very abstract with lot of weird
+constructions
+
+\section{Reference}
+
+\begin{itemize}
+\item
+  Scalaz: Library in scala, provide a wealth of categorical
+  constructions for scala programs
+\item
+  Category in java: representing cat.th. in JAva
+\item
+  Haskell: pioneer in applied cat.th.
+\item
+  http://hseeberger.wordpress.com/2011/01/31/applicatives-are-generalized-functors/
+\item
+  http://aabs.wordpress.com/2008/05/29/functional-programming-lessons-from-high-school-arithmetic/
+\end{itemize}
+\section{Credits}
+
+\begin{itemize}
+\item
+  \href{http://en.wikipedia.org/wiki/File:Himnastigi.jpg}{Bath's Jacob's
+  Ladder}
+\item
+  \href{http://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Augsburg\_Barf\%C3\%BC\%C3\%9Ferkirche\_013.jpg/822px-Augsburg\_Barf\%C3\%BC\%C3\%9Ferkirche\_013.jpg}{Augsburg
+  Barfüßerkirche}
+\end{itemize}
+
+\end{document}

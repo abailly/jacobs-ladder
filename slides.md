@@ -44,7 +44,7 @@ Rules:
   function eval : B^A x A -> B s.t. for any f: C x A -> B, f
   factorizes uniquely through eval:
   
-     f = ev ⋅ (λf × ι)
+     $f = ev ∘ (λf × ι)$
 	 
 - This also says that one can form  λf: C -> B^A the function that
   that transforms a two-argument function (here C x A -> B) into a
@@ -135,3 +135,8 @@ Caveats:
 
 - http://hseeberger.wordpress.com/2011/01/31/applicatives-are-generalized-functors/
 - http://aabs.wordpress.com/2008/05/29/functional-programming-lessons-from-high-school-arithmetic/
+
+# Credits
+
+- [Bath's Jacob's Ladder](http://en.wikipedia.org/wiki/File:Himnastigi.jpg)
+- [Augsburg Barfüßerkirche](http://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg/822px-Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg)
