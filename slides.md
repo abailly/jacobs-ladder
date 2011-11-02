@@ -2,6 +2,13 @@
 % Arnaud Bailly - Christophe Thibaut
 % 01/12/2011
 
+# Introduction
+
+- WTF with Category Theory?:
+   - Social varnish that allows you to shine in society
+   - FP appears to be more and more relevant for day-to-day computing: Understand the jargon used within (some circles of) FP community
+   - Could it be useful for *designing* programs, even outside FP?
+
 # Category Theory Crash course
 
 - What is a category?
@@ -85,6 +92,15 @@ languages (eg. C, assembly...)
 - <*> : f (a -> b) -> (f a -> f b) : allows working on multiple arity
   functions, _push argument application inside functor_
 
+# Applicative Functors (contd.)
+
+- Example: Composing *futures* (or *promises*) within asynchronous computations
+- Given a value of type A, construct the *Future of A* namely $F A$ (a functor): This is any A _in the future_
+- Transform any function $f : A -> B$ into a function on futures $ F f : F A -> GF B$ (this is *fmap*)
+- Tranform a binary function $f : A -> B -> C$ into a function on futures:
+  $$f <$> a : F (B -> C)$$
+  $$f <$> a <*> b : F C$$
+
 # Monads
 
 - Article from Erik Meijer about LINQ: http://cacm.acm.org/magazines/2011/10/131398-the-world-according-to-linq/fulltext
@@ -92,7 +108,25 @@ languages (eg. C, assembly...)
   over various datatypes, including relational structures 
 - the various keywords of the SQLish language (SELECT, FROM, WHERE)
   are just instances of (a -> m b) which are chained in the monad
+- Monads are a  way to express *computations over values* categorically
+- Monad tutorials is a _genre_ in itself within FP community
 
+# Monads (contd.)
+
+- 2 different presentations: Kleisli triples *and* monads
+- Kleisli triples:
+   - A functor M 
+   - An arrow return : $A -> M A$
+   - An arrow bind : $(A -> M B) -> (M A -> M B)$
+- Monads:
+   - A functor M
+   - A natural transformation unit : $A -> M A$
+   - A natural transformation join : $ M M A -> M A$
+- these representations are equivalent:
+  $join = bind id$
+  $bind f = join ∘ (fmap f)$
+  $fmap f = bind (unit ∘ f)$
+  
 # Natural transformations
 
 - Mappings *between functors*
@@ -100,8 +134,19 @@ languages (eg. C, assembly...)
   list without changing the elements in it (reverse, inits, tails...) 
 - Down the ladder: 
   - I/O on HTTP messages, REST interface of a service
-  - A transformation need to be an isomorphism (ie. invertible), it
+  - A transformation need not be an isomorphism (ie. invertible), it
     may "forget" some aspects of the functors it maps
+
+# Duality
+
+    The slogan is: Reverse all arrows!
+	
+- For each construction in Cat.Th., there is a *dual* construction which arises when one "reverse the arrows"
+- Given a construction _foo_, then the dual is _co-foo_
+- Product ↣ Sum (Co-Product)
+- Terminal object ↣ Initial object
+- Pullback ↣ Pushout
+- Monad ↣ Co-Monad
 
 # Conclusion
 
@@ -134,9 +179,12 @@ Caveats:
 - Haskell: pioneer in applied cat.th. 
 
 - http://hseeberger.wordpress.com/2011/01/31/applicatives-are-generalized-functors/
-- http://aabs.wordpress.com/2008/05/29/functional-programming-lessons-from-high-school-arithmetic/
+- http://aabs.wordpress.com/2008/05/29/functional-programming-lessons-from-high-school-arithmetic/
+- [Notions of Computations and Monads](http://www.disi.unige.it/person/MoggiE/ftp/ic91.pdf)
 
 # Credits
 
 - [Bath's Jacob's Ladder](http://en.wikipedia.org/wiki/File:Himnastigi.jpg)
 - [Augsburg Barfüßerkirche](http://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg/822px-Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg)
+
+- [Drawing commutative diagrams in Latex with TikZ](http://www.felixl.de/commu.pdf)

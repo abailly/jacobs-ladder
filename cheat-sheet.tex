@@ -52,7 +52,7 @@ A&&B\\};
 row sep=3em, column sep=2.5em,
 text height=1.5ex, text depth=0.25ex]
 {
-1 \times A&&B \\
+C \times A&&B \\
 \\
 &B^A \times A&\\};
 \path[->,font=\scriptsize]
@@ -61,6 +61,23 @@ text height=1.5ex, text depth=0.25ex]
 (a-3-2) edge node[right]{$\mathrm{ap}$} (a-1-3);
 \end{tikzpicture}
 \caption{Exponential}
+\end{figure}
+
+\begin{figure}
+\begin{tikzpicture}[>=angle 90]
+\matrix(a)[matrix of math nodes,
+row sep=3em, column sep=2.5em,
+text height=1.5ex, text depth=0.25ex]
+{
+A & B \\
+C & D \\};
+\path[->,font=\scriptsize]
+(a-1-1) edge node[above]{$f$} (a-1-2)
+(a-1-1) edge node[left]{$g$} (a-2-1)
+(a-2-1) edge node[above]{$f'$} (a-2-2)
+(a-1-2) edge node[right]{$g'$} (a-2-2);
+\end{tikzpicture}
+\caption{Pullback}
 \end{figure}
 
 
