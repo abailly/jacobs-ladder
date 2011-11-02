@@ -7,7 +7,7 @@
 - WTF with Category Theory?:
    - Social varnish that allows you to shine in society
    - FP appears to be more and more relevant for day-to-day computing: Understand the jargon used within (some circles of) FP community
-   - Could it be useful for *designing* programs, even outside FP?
+   - Could it be useful for *designing* programs, even outside FP
 
 # Category Theory Crash course
 
@@ -48,13 +48,13 @@ Rules:
 
 - representing *function abstraction* in a category
 - let A, B be objects, we can form B^A the *exponential object* and a
-  function eval : B^A x A -> B s.t. for any f: C x A -> B, f
+  function eval : B^A  × A → B s.t. for any f: C × A → B, f
   factorizes uniquely through eval:
   
      $f = ev ∘ (λf × ι)$
 	 
-- This also says that one can form  λf: C -> B^A the function that
-  that transforms a two-argument function (here C x A -> B) into a
+- This also says that one can form  λf: C → B^A the function that
+  that transforms a two-argument function (here C × A → B) into a
   function from one argument to another function. We cannot however
   leave A in the equation is it provides the basis for the computation
   of the limit (??)
@@ -67,7 +67,7 @@ into an intermediate form suitable for compilation to low-level
 languages (eg. C, assembly...)
 - Rests on the concept of a cartesian closed category: A category with
   all limits and exponentiation.
-
+→
 # Case Study: A proxy HTTP server
 
 - Define an HTTP Service for retrieving content of files from a uid
@@ -81,25 +81,23 @@ languages (eg. C, assembly...)
 # Functors
 
 - Mappings from objects to objects s.t. composition of functions is preserved 
-  f: a -> b => Ff : Fa -> Fb 
+  f: a → b ⇒ Ff : Fa → Fb 
 - Down the ladder: Defining parametric data structures (eg. type constructors) like Lists, Sets, Streams...
 - Exercise: The functor of functions with errors
 
 # Applicative Functors
 
-- <$> : a -> b -> (f a -> f b) : this is standard "functor
+- <$> : a → b → (f a → f b) : this is standard "functor
   application"
-- <*> : f (a -> b) -> (f a -> f b) : allows working on multiple arity
+- <*> : f (a → b) → (f a → f b) : allows working on multiple arity
   functions, _push argument application inside functor_
 
 # Applicative Functors (contd.)
 
 - Example: Composing *futures* (or *promises*) within asynchronous computations
 - Given a value of type A, construct the *Future of A* namely $F A$ (a functor): This is any A _in the future_
-- Transform any function $f : A -> B$ into a function on futures $ F f : F A -> GF B$ (this is *fmap*)
-- Tranform a binary function $f : A -> B -> C$ into a function on futures:
-  $$f <$> a : F (B -> C)$$
-  $$f <$> a <*> b : F C$$
+- Transform any function $f : A → B$ into a function on futures $ F f : F A → F B$ (this is *fmap*)
+- Tranform a binary function $f : A → B → C$ into a function on futures: f <$> a : F (B → C), f <$> a <*> b : F C
 
 # Monads
 
@@ -107,7 +105,7 @@ languages (eg. C, assembly...)
 - LINQ uses monads' *flatMap* (aka. *bind*) to construct "queries"
   over various datatypes, including relational structures 
 - the various keywords of the SQLish language (SELECT, FROM, WHERE)
-  are just instances of (a -> m b) which are chained in the monad
+  are just instances of (a → m b) which are chained in the monad
 - Monads are a  way to express *computations over values* categorically
 - Monad tutorials is a _genre_ in itself within FP community
 
@@ -115,17 +113,11 @@ languages (eg. C, assembly...)
 
 - 2 different presentations: Kleisli triples *and* monads
 - Kleisli triples:
-   - A functor M 
-   - An arrow return : $A -> M A$
-   - An arrow bind : $(A -> M B) -> (M A -> M B)$
+   - A functor M, an arrow return : A → M A, an arrow bind : (A → M B) → (M A → M B)
 - Monads:
-   - A functor M
-   - A natural transformation unit : $A -> M A$
-   - A natural transformation join : $ M M A -> M A$
+   - A functor M, A natural transformation unit : A → M A, A natural transformation join :  M M A → M A
 - these representations are equivalent:
-  $join = bind id$
-  $bind f = join ∘ (fmap f)$
-  $fmap f = bind (unit ∘ f)$
+  join = bind id, bind f = join ∘ (fmap f), fmap f = bind (unit ∘ f)
   
 # Natural transformations
 
