@@ -21,7 +21,6 @@
 
 # Warmer: Deconstructing a function categorically
 
-Rules: 
 - Use only arrows and objects' names (ie. do not describe the internal structure of objects)
 - Assume we work in a well-behaved category
 - Refine a function till you drop
@@ -47,14 +46,14 @@ Rules:
 # Exponential
 
 - representing *function abstraction* in a category
-- let A, B be objects, we can form B^A the *exponential object* and a
-  function eval : B^A  × A → B s.t. for any f: C × A → B, f
+- let A, B be objects, we can form $B^A$ the *exponential object* and a
+  function eval : $B^A  × A → B$ s.t. for any $f: C × A → B$, f
   factorizes uniquely through eval:
   
      $f = ev ∘ (λf × ι)$
 	 
-- This also says that one can form  λf: C → B^A the function that
-  that transforms a two-argument function (here C × A → B) into a
+- This also says that one can form  $λf: C → B^A$ the function that
+  that transforms a two-argument function (here $C × A → B$) into a
   function from one argument to another function. We cannot however
   leave A in the equation is it provides the basis for the computation
   of the limit (??)
@@ -67,7 +66,7 @@ into an intermediate form suitable for compilation to low-level
 languages (eg. C, assembly...)
 - Rests on the concept of a cartesian closed category: A category with
   all limits and exponentiation.
-→
+
 # Case Study: A proxy HTTP server
 
 - Define an HTTP Service for retrieving content of files from a uid
@@ -81,27 +80,27 @@ languages (eg. C, assembly...)
 # Functors
 
 - Mappings from objects to objects s.t. composition of functions is preserved 
-  f: a → b ⇒ Ff : Fa → Fb 
+  $f: a → b ⇒ Ff : Fa → Fb$
 - Down the ladder: Defining parametric data structures (eg. type constructors) like Lists, Sets, Streams...
 - Exercise: The functor of functions with errors
 
 # Applicative Functors
 
-- <$> : a → b → (f a → f b) : this is standard "functor
+- <$> : $a → b → (f a → f b)$ : this is standard "functor
   application"
-- <*> : f (a → b) → (f a → f b) : allows working on multiple arity
+- <*> : $f (a → b) → (f a → f b)$ : allows working on multiple arity
   functions, _push argument application inside functor_
 
 # Applicative Functors (contd.)
 
 - Example: Composing *futures* (or *promises*) within asynchronous computations
 - Given a value of type A, construct the *Future of A* namely $F A$ (a functor): This is any A _in the future_
-- Transform any function $f : A → B$ into a function on futures $ F f : F A → F B$ (this is *fmap*)
+- Transform any function $f : A → B$ into a function on futures $F f : F A → F B$ (this is *fmap*)
 - Tranform a binary function $f : A → B → C$ into a function on futures: f <$> a : F (B → C), f <$> a <*> b : F C
 
 # Monads
 
-- Article from Erik Meijer about LINQ: http://cacm.acm.org/magazines/2011/10/131398-the-world-according-to-linq/fulltext
+- [Erik Meijer about LINQ](http://cacm.acm.org/magazines/2011/10/131398-the-world-according-to-linq/fulltext)
 - LINQ uses monads' *flatMap* (aka. *bind*) to construct "queries"
   over various datatypes, including relational structures 
 - the various keywords of the SQLish language (SELECT, FROM, WHERE)
@@ -113,9 +112,9 @@ languages (eg. C, assembly...)
 
 - 2 different presentations: Kleisli triples *and* monads
 - Kleisli triples:
-   - A functor M, an arrow return : A → M A, an arrow bind : (A → M B) → (M A → M B)
+   - A functor M, an arrow return : $A → M A$, an arrow bind : $(A → M B) → (M A → M B)$
 - Monads:
-   - A functor M, A natural transformation unit : A → M A, A natural transformation join :  M M A → M A
+   - A functor M, A natural transformation unit : $A → M A$, A natural transformation join :  $M M A → M A$
 - these representations are equivalent:
   join = bind id, bind f = join ∘ (fmap f), fmap f = bind (unit ∘ f)
   
@@ -143,6 +142,7 @@ languages (eg. C, assembly...)
 # Conclusion
 
 Relating categorical thinking to agile design principles:
+
 - *Simple design*: only arrows and (abstract) objects, no patterns, no
   frameworks, no fancy coding tricks
 - *No BDUF*: Designing functions first: What will you do with your
@@ -156,7 +156,8 @@ Relating categorical thinking to agile design principles:
   transformations to *lift* from core domain to a more complex
   behaviours (error handling, logging, interfacing with the outside world)
 
-Caveats:
+# Caveats
+
 - Do not talk of this conference to your local mathematician, its hair
   might go white earlier than expected! 
 - True Cat.Th. is insanely complex, it has connections to all of
@@ -170,8 +171,9 @@ Caveats:
 - Category in java: representing cat.th. in JAva
 - Haskell: pioneer in applied cat.th. 
 
-- http://hseeberger.wordpress.com/2011/01/31/applicatives-are-generalized-functors/
+- [Applicatives functors](http://hseeberger.wordpress.com/2011/01/31/applicatives-are-generalized-functors/)
 - http://aabs.wordpress.com/2008/05/29/functional-programming-lessons-from-high-school-arithmetic/
+- [Essence of the Iterator Pattern](http://etorreborre.blogspot.com/2011/06/essence-of-iterator-pattern.html)
 - [Notions of Computations and Monads](http://www.disi.unige.it/person/MoggiE/ftp/ic91.pdf)
 
 # Credits
