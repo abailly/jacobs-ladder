@@ -117,7 +117,14 @@ languages (eg. C, assembly...)
    - A functor M, A natural transformation unit : $A → M A$, A natural transformation join :  $M M A → M A$
 - these representations are equivalent:
   join = bind id, bind f = join ∘ (fmap f), fmap f = bind (unit ∘ f)
-  
+
+# Case Study : The Composed Method pattern
+
+- Reference is [Neal Ford](http://www.ibm.com/developerworks/java/library/j-eaed4/index.html)'s article
+- Question is: Can you compose a Composed method? Answer is: No, not
+  as it is presented in the article, transactionality does not compose
+- How to compose with transactionality?
+
 # Natural transformations
 
 - Mappings *between functors*
