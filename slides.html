@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+  <meta name="author" content="Arnaud Bailly - Christophe Thibaut" />
+  <meta name="date" content="01/12/2011" />
+  <title>Jacob's Ladder</title>
+  <link rel="stylesheet" href="slides.css" />
+</head>
+<body>
+<section>
+  <h1 class="title">Jacob's Ladder</h1>
+    <h2 class="author">Arnaud Bailly - Christophe Thibaut</h2>
+      <h3 class="date">01/12/2011</h3>
+</section>
+<section class="slide">
+<h1 id="introduction">Introduction</h1>
+<ul class="incremental">
+<li>WTF with Category Theory?:</li>
+<li>Social varnish that allows you to shine in society</li>
+<li>FP appears to be more and more relevant for day-to-day computing: Understand the jargon used within (some circles of) FP community</li>
+<li>Could it be useful for <em>designing</em> programs, even outside FP</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="category-theory-crash-course">Category Theory Crash course</h1>
+<ul class="incremental">
+<li>What is a category?</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="well-known-or-not-so-well-known-categories">&quot;Well-known&quot; (or not so well-known) Categories</h1>
+<ul class="incremental">
+<li>Some examples of Categories: Set, monoid, poset...</li>
+<li>Hask: Category of Haskell types</li>
+<li>CAM: Categorical abstract machine, a practical compilation scheme for ML languages based on standard categorical constructs</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="warmer-deconstructing-a-function-categorically">Warmer: Deconstructing a function categorically</h1>
+<ul class="incremental">
+<li>Use only arrows and objects' names (ie. do not describe the internal structure of objects)</li>
+<li>Assume we work in a well-behaved category</li>
+<li>Refine a function till you drop</li>
+</ul>
+</section>
+<section class="titleslide" class="slide">
+<h1 id="constructions-in-categories">Constructions In Categories</h1>
+</section>
+<section class="slide">
+<h1 id="product-tupling-objects-and-functions">Product: Tupling objects and functions</h1>
+<ul class="incremental">
+<li>Down the ladder: Define records and structures, apply functions on them</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="sums-choosing-between-alternatives">Sums: Choosing between alternatives</h1>
+<ul class="incremental">
+<li>Down the ladder: Error handling, making partial functions total</li>
+<li>Eg. Exceptions in Java/C#</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="special-objects-0-and-1">Special objects: 0 and 1</h1>
+<ul class="incremental">
+<li><em>0</em>: Initial object, one and only one arrow from 0 to any other object</li>
+<li><em>1</em>: Terminal object, one and only one arrow from any other object to 1</li>
+<li>Using 1 as a <em>selector</em> for &quot;elements&quot; in objects (eg. members of a set)</li>
+<li>Uniqueness up-to isomorphisms</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="exponential">Exponential</h1>
+<ul class="incremental">
+<li>representing <em>function abstraction</em> in a category</li>
+<li><p>let A, B be objects, we can form <span class="math"><em>B</em><sup><em>A</em></sup></span> the <em>exponential object</em> and a function eval : <span class="math"><em>B</em><sup><em>A</em></sup>×<em>A</em>→<em>B</em></span> s.t. for any <span class="math"><em>f</em>: <em>C</em>×<em>A</em>→<em>B</em></span>, f factorizes uniquely through eval:</p>
+<p><span class="math"><em>f</em> = <em>e</em><em>v</em>∘(<em>λ</em><em>f</em>×<em>ι</em>)</span></p></li>
+<li><p>This also says that one can form <span class="math"><em>λ</em><em>f</em>: <em>C</em>→<em>B</em><sup><em>A</em></sup></span> the function that that transforms a two-argument function (here <span class="math"><em>C</em>×<em>A</em>→<em>B</em></span>) into a function from one argument to another function. We cannot however leave A in the equation is it provides the basis for the computation of the limit (??)</p></li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="categorical-abstract-machine">Categorical Abstract Machine</h1>
+<ul class="incremental">
+<li>Representing computation within a category : The Categorical Abstract Machine (Cousineau et al., 1987) allows compiling <em>strict</em> functional programs into an intermediate form suitable for compilation to low-level languages (eg. C, assembly...)</li>
+<li>Rests on the concept of a cartesian closed category: A category with all limits and exponentiation.</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="case-study-a-proxy-http-server">Case Study: A proxy HTTP server</h1>
+<ul class="incremental">
+<li>Define an HTTP Service for retrieving content of files from a uid stored in a repository</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="constructions-over-categories">Constructions Over Categories</h1>
+<ul class="incremental">
+<li>Up the ladder: applying categorical concepts to categorical constructs</li>
+<li>Yes, the category of categories exists! (with some restrictions...)</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="functors">Functors</h1>
+<ul class="incremental">
+<li>Mappings from objects to objects s.t. composition of functions is preserved <span class="math"><em>f</em>: <em>a</em>→<em>b</em>⇒<em>F</em><em>f</em>: <em>F</em><em>a</em>→<em>F</em><em>b</em></span></li>
+<li>Down the ladder: Defining parametric data structures (eg. type constructors) like Lists, Sets, Streams...</li>
+<li>Exercise: The functor of functions with errors</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="applicative-functors">Applicative Functors</h1>
+<ul class="incremental">
+<li>&lt;$&gt; : <span class="math"><em>a</em>→<em>b</em>→(<em>f</em><em>a</em>→<em>f</em><em>b</em>)</span> : this is standard &quot;functor application&quot;</li>
+<li>&lt;*&gt; : <span class="math"><em>f</em>(<em>a</em>→<em>b</em>)→(<em>f</em><em>a</em>→<em>f</em><em>b</em>)</span> : allows working on multiple arity functions, <em>push argument application inside functor</em></li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="applicative-functors-contd.">Applicative Functors (contd.)</h1>
+<ul class="incremental">
+<li>Example: Composing <em>futures</em> (or <em>promises</em>) within asynchronous computations</li>
+<li>Given a value of type A, construct the <em>Future of A</em> namely <span class="math"><em>F</em><em>A</em></span> (a functor): This is any A <em>in the future</em></li>
+<li>Transform any function <span class="math"><em>f</em>: <em>A</em>→<em>B</em></span> into a function on futures <span class="math"><em>F</em><em>f</em>: <em>F</em><em>A</em>→<em>F</em><em>B</em></span> (this is <em>fmap</em>)</li>
+<li>Tranform a binary function <span class="math"><em>f</em>: <em>A</em>→<em>B</em>→<em>C</em></span> into a function on futures: f &lt;<span class="math"> &gt; <em>a</em>: <em>F</em>(<em>B</em>→<em>C</em>), <em>f</em> &lt; </span>&gt; a &lt;*&gt; b : F C</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="monads">Monads</h1>
+<ul class="incremental">
+<li><a href="http://cacm.acm.org/magazines/2011/10/131398-the-world-according-to-linq/fulltext">Erik Meijer about LINQ</a></li>
+<li>LINQ uses monads' <em>flatMap</em> (aka. <em>bind</em>) to construct &quot;queries&quot; over various datatypes, including relational structures</li>
+<li>the various keywords of the SQLish language (SELECT, FROM, WHERE) are just instances of (a → m b) which are chained in the monad</li>
+<li>Monads are a way to express <em>computations over values</em> categorically</li>
+<li>Monad tutorials is a <em>genre</em> in itself within FP community</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="monads-contd.">Monads (contd.)</h1>
+<ul class="incremental">
+<li>2 different presentations: Kleisli triples <em>and</em> monads</li>
+<li>Kleisli triples:</li>
+<li>A functor M, an arrow return : <span class="math"><em>A</em>→<em>M</em><em>A</em></span>, an arrow bind : <span class="math">(<em>A</em>→<em>M</em><em>B</em>)→(<em>M</em><em>A</em>→<em>M</em><em>B</em>)</span></li>
+<li>Monads:</li>
+<li>A functor M, A natural transformation unit : <span class="math"><em>A</em>→<em>M</em><em>A</em></span>, A natural transformation join : <span class="math"><em>M</em><em>M</em><em>A</em>→<em>M</em><em>A</em></span></li>
+<li>these representations are equivalent: join = bind id, bind f = join ∘ (fmap f), fmap f = bind (unit ∘ f)</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="case-study-the-composed-method-pattern">Case Study : The Composed Method pattern</h1>
+<ul class="incremental">
+<li>Reference is <a href="http://www.ibm.com/developerworks/java/library/j-eaed4/index.html">Neal Ford</a>'s article</li>
+<li>Question is: Can you compose a Composed method? Answer is: No, not as it is presented in the article, transactionality does not compose</li>
+<li>How to compose with transactionality?</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="natural-transformations">Natural transformations</h1>
+<ul class="incremental">
+<li>Mappings <em>between functors</em></li>
+<li>Down the ladder: Functions on lists that change the &quot;shape&quot; of the list without changing the elements in it (reverse, inits, tails...)</li>
+<li>Down the ladder:</li>
+<li>I/O on HTTP messages, REST interface of a service</li>
+<li>A transformation need not be an isomorphism (ie. invertible), it may &quot;forget&quot; some aspects of the functors it maps</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="duality">Duality</h1>
+<pre><code>The slogan is: Reverse all arrows!
+</code></pre>
+<ul class="incremental">
+<li>For each construction in Cat.Th., there is a <em>dual</em> construction which arises when one &quot;reverse the arrows&quot;</li>
+<li>Given a construction <em>foo</em>, then the dual is <em>co-foo</em></li>
+<li>Product ↣ Sum (Co-Product)</li>
+<li>Terminal object ↣ Initial object</li>
+<li>Pullback ↣ Pushout</li>
+<li>Monad ↣ Co-Monad</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="conclusion">Conclusion</h1>
+<p>Relating categorical thinking to agile design principles:</p>
+<ul class="incremental">
+<li><em>Simple design</em>: only arrows and (abstract) objects, no patterns, no frameworks, no fancy coding tricks</li>
+<li><em>No BDUF</em>: Designing functions first: What will you do with your data/objects?, refrain from defining the implementation first, abstract from details to prevent data lock-in</li>
+<li><em>Removing duplication</em>: Generalizing to higher-levels allow DRY to apply not only on functions but also on control structures and &quot;shape&quot; of the system</li>
+<li>Focusing on the <em>Domain</em>: First define core arrows, those that are part of the domain you are working on ; then apply functors and transformations to <em>lift</em> from core domain to a more complex behaviours (error handling, logging, interfacing with the outside world)</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="caveats">Caveats</h1>
+<ul class="incremental">
+<li>Do not talk of this conference to your local mathematician, its hair might go white earlier than expected!</li>
+<li>True Cat.Th. is insanely complex, it has connections to all of mathematics (logic, topology, algebra, analysis) and is very abstract with lot of weird constructions</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="reference">Reference</h1>
+<ul class="incremental">
+<li>Scalaz: Library in scala, provide a wealth of categorical constructions for scala programs</li>
+<li>Category in java: representing cat.th. in JAva</li>
+<li><p>Haskell: pioneer in applied cat.th.</p></li>
+<li><a href="http://hseeberger.wordpress.com/2011/01/31/applicatives-are-generalized-functors/">Applicatives functors</a></li>
+<li>http://aabs.wordpress.com/2008/05/29/functional-programming-lessons-from-high-school-arithmetic/</li>
+<li><a href="http://etorreborre.blogspot.com/2011/06/essence-of-iterator-pattern.html">Essence of the Iterator Pattern</a></li>
+<li><p><a href="http://www.disi.unige.it/person/MoggiE/ftp/ic91.pdf">Notions of Computations and Monads</a></p></li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="credits">Credits</h1>
+<ul class="incremental">
+<li><a href="http://en.wikipedia.org/wiki/File:Himnastigi.jpg">Bath's Jacob's Ladder</a></li>
+<li><p><a href="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg/822px-Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg">Augsburg Barfüßerkirche</a></p></li>
+<li><p><a href="http://www.felixl.de/commu.pdf">Drawing commutative diagrams in Latex with TikZ</a></p></li>
+</ul>
+</section>
+<!-- {{{{ *****************  DZSlides CORE 2.0b1 *************************** -->
+<!-- *********************************************************************** -->
+<!-- *********************************************************************** -->
+<!-- *********************************************************************** -->
+<!-- *********************************************************************** -->
+
+<!-- This block of code is not supposed to be edited, but if you want to change the behavior of the slides, feel free to hack it ;) -->
+
+<!-- Default Style -->
+<style>
+  * { margin: 0; padding: 0; }
+  details { display: none; }
+  body {
+    width: 800px; height: 600px;
+    margin-left: -400px; margin-top: -300px;
+    position: absolute; top: 50%; left: 50%;
+    overflow: hidden;
+  }
+  html {
+    overflow: hidden;
+  }
+  section {
+    position: absolute;
+    pointer-events: none;
+    width: 95%; height: 100%;
+  }
+  section[aria-selected] { pointer-events: auto; }
+  body { display: none; }
+  body.loaded { display: block; }
+  .incremental {visibility: hidden}
+  .incremental[active] {visibility: visible}
+</style>
+
+<script>
+  var friendWindows = [];
+  var idx, step;
+  var slides;
+
+  /* main() */
+
+  window.onload = function() {
+    slides = document.querySelectorAll("body > section");
+    onhashchange();
+    document.body.className = "loaded";
+    setupTouchEvents();
+    onresize();
+  }
+
+  /* Handle keys */
+
+  window.onkeydown = function(e) {
+    // Don't intercept keyboard shortcuts
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+      return;
+    }
+    if ( e.keyCode == 37 // left arrow
+      || e.keyCode == 38 // up arrow
+      || e.keyCode == 33 // page up
+    ) {
+      e.preventDefault();
+      back();
+    }
+    if ( e.keyCode == 39 // right arrow
+      || e.keyCode == 40 // down arrow
+      || e.keyCode == 34 // page down
+    ) {
+      e.preventDefault();
+      forward();
+    }
+    if (e.keyCode == 35) { // end
+      e.preventDefault();
+      end();
+    }
+    if (e.keyCode == 36) { // home
+      e.preventDefault();
+      start();
+    }
+
+    if ( e.keyCode == 32) { // space
+        e.preventDefault();
+        toggleContent();
+    }
+  }
+
+  /* Touch Events */
+
+  function setupTouchEvents() {
+    var orgX, newX;
+    var tracking = false;
+
+    var db = document.body;
+    db.addEventListener("touchstart", start, false);
+    db.addEventListener("touchmove", move, false);
+
+    function start(e) {
+      e.preventDefault();
+      tracking = true;
+      orgX = e.changedTouches[0].pageX;
+    }
+
+    function move(e) {
+      if (!tracking) return;
+      newX = e.changedTouches[0].pageX;
+      if (orgX - newX > 100) {
+        tracking = false;
+        forward();
+      } else {
+        if (orgX - newX < -100) {
+          tracking = false;
+          back();
+        }
+      }
+    }
+  }
+
+  /* Adapt the size of the slides to the window */
+
+  window.onresize = function() {
+    var db = document.body;
+    var sx = db.clientWidth / window.innerWidth;
+    var sy = db.clientHeight / window.innerHeight;
+    var transform = "scale(" + (1/Math.max(sx, sy)) + ")";
+    db.style.MozTransform = transform;
+    db.style.WebkitTransform = transform;
+    db.style.OTransform = transform;
+    db.style.msTransform = transform;
+    db.style.transform = transform;
+  }
+  function getDetails(idx) {
+    var s = document.querySelector("section:nth-of-type("+ idx +")");
+    var d = s.querySelector("details");
+    return d?d.innerHTML:"";
+  }
+  window.onmessage = function(e) {
+    var msg = e.data;
+    var win = e.source;
+    if (msg === "register") {
+      friendWindows.push(win);
+      win.postMessage(JSON.stringify({method: "registered", title: document.title, count: slides.length}), "*");
+      win.postMessage(JSON.stringify({method: "newslide", details: getDetails(idx), idx: idx}), "*");
+      return;
+    }
+    if (msg === "back") back();
+    if (msg === "forward") forward();
+    if (msg === "toggleContent") toggleContent();
+    // setSlide(42)
+    var r = /setSlide\((\d+)\)/.exec(msg);
+    if (r) {
+        setSlide(r[1]);
+    }
+  }
+
+  /* If a Video is present in this new slide, play it.
+     If a Video is present in the previous slide, stop it. */
+
+  function toggleContent() {
+    var s = document.querySelector("section[aria-selected]");
+    if (s) {
+        var video = s.querySelector("video");
+        if (video) {
+            if (video.ended || video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+    }
+  }
+
+  /* If the user change the slide number in the URL bar, jump
+     to this slide. */
+
+  function setCursor(aIdx, aStep) {
+    aStep = (aStep != 0 && typeof aStep !== "undefined") ? "." + aStep : "";
+    window.location.hash = "#" + aIdx + aStep;
+  }
+  window.onhashchange = function(e) {
+    var cursor = window.location.hash.split("#"), newidx = 1, newstep = 0;
+    if (cursor.length == 2) {
+      newidx = ~~cursor[1].split(".")[0];
+      newstep = ~~cursor[1].split(".")[1];
+    }
+    if (newidx != idx) setSlide(newidx);
+    setIncremental(newstep);
+  }
+
+  /* Slide controls */
+
+  function back() {
+    if (idx == 1 && step == 0) return;
+    if (step == 0)
+      setCursor(idx - 1, slides[idx - 2].querySelectorAll('.incremental > *').length);
+    else 
+      setCursor(idx, step - 1);
+  }
+  function forward() {
+    if (idx >= slides.length && step >= slides[idx - 1].querySelectorAll('.incremental > *').length) return;
+    if (step >= slides[idx - 1].querySelectorAll('.incremental > *').length)
+      setCursor(idx + 1, 0);
+    else
+      setCursor(idx, step + 1);
+  }
+  function start() {
+    setCursor(1, 0);
+  }
+  function end() {
+    var lastIdx = slides.length;
+    var lastStep = slides[lastIdx - 1].querySelectorAll('.incremental > *').length;
+    setCursor(lastIdx, lastStep);
+  }
+
+  function setSlide(aIdx) {
+    idx = aIdx;
+    var old = document.querySelector("section[aria-selected]");
+    var next = document.querySelector("section:nth-of-type("+ idx +")");
+    if (old) {
+      old.removeAttribute("aria-selected");
+      var video = old.querySelector("video");
+      if (video) { video.pause(); }
+    }
+    if (next) {
+      next.setAttribute("aria-selected", "true");
+      var video = next.querySelector("video");
+      if (video) { video.play(); }
+    } else {
+      idx = 0;
+      for (var i = 0, l = slides.length; i < l; i++) {
+          if (slides[i].hasAttribute("aria-selected")) {
+              idx = i + 1;
+          }
+      }
+    }
+    for (var i = 0, l = friendWindows.length; i < l; i++) {
+        friendWindows[i].postMessage(JSON.stringify({method: "newslide", details: getDetails(idx), idx: idx}), "*");
+    }
+  }
+  function setIncremental(aStep) {
+    step = aStep;
+    var old = slides[idx-1].querySelector('.incremental > *[aria-selected]');
+    if (old)
+      old.removeAttribute('aria-selected');
+    var incrementals = slides[idx-1].querySelectorAll('.incremental');
+    if (step == 0) {
+      for (var i = 0; i < incrementals.length; i++) {
+        incrementals[i].removeAttribute('active');
+      }
+      return;
+    }
+    var next = slides[idx-1].querySelectorAll('.incremental > *')[step-1];
+    if (next) {
+      next.setAttribute('aria-selected', true);
+      next.parentNode.setAttribute('active', true);
+      var found = false;
+      for (var i = 0; i < incrementals.length; i++) {
+        if (incrementals[i] != next.parentNode)
+          if (found)
+            incrementals[i].removeAttribute('active');
+          else
+            incrementals[i].setAttribute('active', true);
+        else
+          found = true;
+      }
+    } else {
+      setCursor(idx, 0);
+    }
+    return next;
+  }
+</script>
+<!-- vim: set fdm=marker: }}} -->
+</body>
+</html>
