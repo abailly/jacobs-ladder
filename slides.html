@@ -13,18 +13,40 @@
       <h3 class="date">01/12/2011</h3>
 </section>
 <section class="slide">
-<h1 id="introduction">Introduction</h1>
+<h1 id="agenda">Agenda</h1>
 <ul class="incremental">
-<li>WTF with Category Theory?:</li>
-<li>Social varnish that allows you to shine in society</li>
-<li>FP appears to be more and more relevant for day-to-day computing: Understand the jargon used within (some circles of) FP community</li>
-<li>Could it be useful for <em>designing</em> programs, even outside FP</li>
+<li>Intro</li>
+<li>Category Theory Crash Course</li>
+<li>Sample use in Programming</li>
+<li>Categorical Design Experience</li>
+<li>Outro</li>
+</ul>
+</section>
+<section class="titleslide" class="slide">
+<h1 id="introduction">Introduction</h1>
+</section>
+<section class="slide">
+<h1 id="goal-of-this-session">Goal of this Session</h1>
+<ul class="incremental">
+<li>4 reasons to care about Category Theory?:</li>
+<li>Because it's so cool!</li>
+<li>Because FP is The Next Big Thing in programming (and it's rooted in Cat.Th.)</li>
+<li>Because it's so cryptic</li>
+<li>Because it could be useful?</li>
 </ul>
 </section>
 <section class="slide">
-<h1 id="category-theory-crash-course">Category Theory Crash course</h1>
+<h1 id="what-is-category-theory">What is Category Theory?</h1>
+<p>A mathematical formalism created by S.Eilenberg and J.MacLane in the forties to unify various phenomena scattered throughout various fields of mathematics.</p>
+<p>Sometimes dubbed abstract nonsense by more down-to-earth mathematicians...</p>
+<p>Developed in the 50s and 60s in the field of algebraic topology by people like A.Grothendiek, and since the 70s in Computer science to model various things related to computability</p>
+</section>
+<section class="slide">
+<h1 id="so-what-is-a-category">So What is a Category?</h1>
 <ul class="incremental">
-<li>What is a category?</li>
+<li>A kind of structure which is at the heart of Cat.Th.: Look handout for details and references</li>
+<li>A faithful analogy: A category is the transitive closure of a (possibly infinite) <em>directed graph</em>, with some additional properties</li>
+<li>Some categories are special (eg. Set)</li>
 </ul>
 </section>
 <section class="slide">
@@ -146,8 +168,10 @@
 <h1 id="case-study-the-composed-method-pattern">Case Study : The Composed Method pattern</h1>
 <ul class="incremental">
 <li>Reference is <a href="http://www.ibm.com/developerworks/java/library/j-eaed4/index.html">Neal Ford</a>'s article</li>
+<li>Apply <em>Composed Method</em> pattern and <em>Single Level Abstraction Principle</em> to standard JDBC reading problems</li>
 <li>Question is: Can you compose a Composed method? Answer is: No, not as it is presented in the article, transactionality does not compose</li>
-<li>How to compose with transactionality?</li>
+<li>How to compose with transactionality? Proposed refactoring falls short of allowing <em>composition of method within a transactional context</em></li>
+<li>Can we do better? Yes, using Monads to propagate transactional context</li>
 </ul>
 </section>
 <section class="slide">

@@ -2,16 +2,46 @@
 % Arnaud Bailly - Christophe Thibaut
 % 01/12/2011
 
+# Agenda
+
+- Intro
+- Category Theory Crash Course
+- Sample use in Programming
+- Categorical Design Experience
+- Outro
+
 # Introduction
 
-- WTF with Category Theory?:
-   - Social varnish that allows you to shine in society
-   - FP appears to be more and more relevant for day-to-day computing: Understand the jargon used within (some circles of) FP community
-   - Could it be useful for *designing* programs, even outside FP
+# Goal of this Session
 
-# Category Theory Crash course
+- 4 reasons to care about Category Theory?:
+   - Because it's so cool!
+   - Because FP is The Next Big Thing in programming (and it's rooted
+     in Cat.Th.)
+   - Because it's so cryptic
+   - Because it could be useful?
 
-- What is a category?
+# What is Category Theory?
+
+A mathematical formalism created by S.Eilenberg and J.MacLane
+in the forties to unify various phenomena scattered throughout
+various fields of mathematics. 
+
+Sometimes dubbed abstract nonsense by more down-to-earth
+mathematicians... 
+
+Developed in the 50s and 60s in the field of algebraic topology by
+people like A.Grothendiek, and since the 70s in Computer science to
+model various things related to computability
+   
+# So What is a Category?
+
+- A kind of structure which is at the heart of Cat.Th.: Look handout
+  for details and references
+- A faithful analogy: A category is the transitive closure of a
+  (possibly infinite) *directed graph*, with some additional
+  properties
+- Some categories are special (eg. Set)
 
 # "Well-known" (or not so well-known) Categories 
 
@@ -121,9 +151,13 @@ languages (eg. C, assembly...)
 # Case Study : The Composed Method pattern
 
 - Reference is [Neal Ford](http://www.ibm.com/developerworks/java/library/j-eaed4/index.html)'s article
+- Apply *Composed Method* pattern and *Single Level Abstraction Principle* to standard JDBC reading problems
 - Question is: Can you compose a Composed method? Answer is: No, not
   as it is presented in the article, transactionality does not compose
-- How to compose with transactionality?
+- How to compose with transactionality? Proposed refactoring falls
+  short of allowing *composition of method within a transactional
+  context*
+- Can we do better? Yes, using Monads to propagate transactional context
 
 # Natural transformations
 
