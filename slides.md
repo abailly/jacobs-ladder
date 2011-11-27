@@ -14,6 +14,8 @@
 
 # Introduction
 
+![](figures/chantier2.jpg)
+
 # Goal of this Session
 
 4 reasons to care about Category Theory:
@@ -25,6 +27,9 @@
 
 # What is Category Theory?
 
+![](figures/magritte2.jpg)
+
+# What is Category Theory?
 - A mathematical formalism created by *S.Eilenberg* and *J.MacLane* in the
   40's to unify various phenomena scattered throughout various
   fields of mathematics.  
@@ -34,6 +39,10 @@
   people like *A.Grothendiek*, and since the 70's in Computer science to
   model various things related to computability 
    
+# So What is a Category?
+
+![](figures/joyofcats2.jpg)
+
 # So What is a Category?
 
 - A kind of structure which is at the heart of Cat.Th.: _Look handout
@@ -77,6 +86,8 @@
 
 # More Constructions
 
+![](figures/foret2.jpg)
+
 # Exponential
 
 - Representing *function abstraction* in a category
@@ -111,6 +122,8 @@ languages (eg. C, assembly...)
 
 # Even More Constructions
 
+![](figures/jungle2.jpg)
+
 # Constructions Over Categories
 
 - *Let's go Up the ladder*: applying categorical concepts to categorical constructs
@@ -122,9 +135,7 @@ languages (eg. C, assembly...)
 
 > $f: a → b ⇒ Ff : Fa → Fb$
 
-# Functors (contd.)
-
-> *Down the ladder*
+ *Down the ladder*
 
 - **Functors** give rise to parametric data structures, or *type
     constructors* you are familiar with: **Lists**, **Sets**,
@@ -187,6 +198,8 @@ on futures: g = f <$> a : F (B → C) ⟶ g <*> b : F C
 
 # This is not the end...
 
+![](figures/bosch2.jpg)
+
 # Natural transformations
 
 - Mappings **between functors**
@@ -216,10 +229,13 @@ Relating categorical thinking to agile design principles:
 - *No BDUF*: Designing functions first: What will you do with your
   data/objects?, refrain from defining the implementation first,
   abstract from details to prevent data lock-in
+
+# Conclusion (contd.)
+
 - *Removing duplication*: Generalizing to higher-levels allow DRY to
   apply not only on functions but also on control structures and
   "shape" of the system 
-- Focusing on the *Domain*: First define core arrows, those that are
+- *Focusing on the Domain*: First define core arrows, those that are
   part of the domain you are working on ; then apply functors and
   transformations to *lift* from core domain to a more complex
   behaviours (error handling, logging, interfacing with the outside world)
@@ -247,9 +263,21 @@ Relating categorical thinking to agile design principles:
 - [Notions of Computations and Monads](http://www.disi.unige.it/person/MoggiE/ftp/ic91.pdf)
 - [Scala is like EJB 3](http://blog.joda.org/2011/11/scala-feels-like-ejb-2-and-other.html?showComment=1321986456857#c1028446403700470017)
 - [The Categorical Abstract Machine]()
+- [Typeclassopedia](http://haskell.org/haskellwiki/Typeclassopedia)
 
 # Credits
 
 - [Bath's Jacob's Ladder](http://en.wikipedia.org/wiki/File:Himnastigi.jpg)
 - [Augsburg Barfüßerkirche](http://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg/822px-Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg)
 - [Drawing commutative diagrams in Latex with TikZ](http://www.felixl.de/commu.pdf)
+- [Chantier de l'hôtel de Ville de Montpellier](http://fr.wikipedia.org/wiki/Fichier:Montpellier_HotelVille_chantier_24052009b.JPG)
+- [La trahison des images, R.Magritte](http://4.bp.blogspot.com/-Fr0QXP65ook/Tg5eZZxTSaI/AAAAAAAAAG4/6LgvdRHPHvE/s1600/rene_magritte-la_trahison_des_images-1300px.jpg)
+- [The joy of cats](http://katmat.math.uni-bremen.de/acc/acc.pdf)
+- [Le jardin des délices](http://www.histoiredelart.net/artistes/XV/tableaux_bosch/Bosch-Jardin_des_delices-1504.jpg)
+- [Forest](http://www.dinosoria.com/foret-1/images/foret_jpg.jpg)
+- [Jungle](http://everydaybipolar.files.wordpress.com/2011/09/jungle2.jpg)
+
+
+# This is the end...
+
+![](figures/cheshire2.jpg)

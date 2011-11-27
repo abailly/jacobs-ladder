@@ -24,8 +24,11 @@
 <li>Outro</li>
 </ul>
 </section>
-<section class="titleslide" class="slide">
+<section class="slide">
 <h1 id="introduction">Introduction</h1>
+<figure>
+<img src="figures/chantier2.jpg" /><figcaption></figcaption>
+</figure>
 </section>
 <section class="slide">
 <h1 id="goal-of-this-session">Goal of this Session</h1>
@@ -39,6 +42,12 @@
 </section>
 <section class="slide">
 <h1 id="what-is-category-theory">What is Category Theory?</h1>
+<figure>
+<img src="figures/magritte2.jpg" /><figcaption></figcaption>
+</figure>
+</section>
+<section class="slide">
+<h1 id="what-is-category-theory-1">What is Category Theory?</h1>
 <ul class="incremental">
 <li>A mathematical formalism created by <em>S.Eilenberg</em> and <em>J.MacLane</em> in the 40's to unify various phenomena scattered throughout various fields of mathematics.<br /></li>
 <li>Sometimes dubbed abstract nonsense by more down-to-earth mathematicians...<br /></li>
@@ -47,6 +56,12 @@
 </section>
 <section class="slide">
 <h1 id="so-what-is-a-category">So What is a Category?</h1>
+<figure>
+<img src="figures/joyofcats2.jpg" /><figcaption></figcaption>
+</figure>
+</section>
+<section class="slide">
+<h1 id="so-what-is-a-category-1">So What is a Category?</h1>
 <ul class="incremental">
 <li>A kind of structure which is at the heart of Cat.Th.: <em>Look handout for details and references</em></li>
 <li>Here is a faithful analogy: A category is the transitive closure of a (possibly infinite) <em>directed graph</em>, with some additional properties</li>
@@ -91,8 +106,11 @@
 <li>Refine a function till you drop</li>
 </ul>
 </section>
-<section class="titleslide" class="slide">
+<section class="slide">
 <h1 id="more-constructions">More Constructions</h1>
+<figure>
+<img src="figures/foret2.jpg" /><figcaption></figcaption>
+</figure>
 </section>
 <section class="slide">
 <h1 id="exponential">Exponential</h1>
@@ -126,8 +144,11 @@
 <li>Rests on the concept of a cartesian closed category: A category with all limits and exponentiation.</li>
 </ul>
 </section>
-<section class="titleslide" class="slide">
+<section class="slide">
 <h1 id="even-more-constructions">Even More Constructions</h1>
+<figure>
+<img src="figures/jungle2.jpg" /><figcaption></figcaption>
+</figure>
 </section>
 <section class="slide">
 <h1 id="constructions-over-categories">Constructions Over Categories</h1>
@@ -144,12 +165,7 @@
 <blockquote class="incremental">
 <p><span class="math"><em>f</em>: <em>a</em>→<em>b</em>⇒<em>F</em><em>f</em>: <em>F</em><em>a</em>→<em>F</em><em>b</em></span></p>
 </blockquote>
-</section>
-<section class="slide">
-<h1 id="functors-contd.">Functors (contd.)</h1>
-<blockquote class="incremental">
 <p><em>Down the ladder</em></p>
-</blockquote>
 <ul class="incremental">
 <li><strong>Functors</strong> give rise to parametric data structures, or <em>type constructors</em> you are familiar with: <strong>Lists</strong>, <strong>Sets</strong>, <strong>Streams</strong>, <strong>Array</strong> ...</li>
 </ul>
@@ -215,8 +231,11 @@
 <li>The various keywords of the SQLish language (SELECT, FROM, WHERE) are just instances of (a → m b) which are chained in the monad</li>
 </ul>
 </section>
-<section class="titleslide" class="slide">
+<section class="slide">
 <h1 id="this-is-not-the-end...">This is not the end...</h1>
+<figure>
+<img src="figures/bosch2.jpg" /><figcaption></figcaption>
+</figure>
 </section>
 <section class="slide">
 <h1 id="natural-transformations">Natural transformations</h1>
@@ -247,8 +266,13 @@
 <ul class="incremental">
 <li><em>Simple design</em>: only arrows and (abstract) objects, no patterns, no frameworks, no fancy coding tricks</li>
 <li><em>No BDUF</em>: Designing functions first: What will you do with your data/objects?, refrain from defining the implementation first, abstract from details to prevent data lock-in</li>
+</ul>
+</section>
+<section class="slide">
+<h1 id="conclusion-contd.">Conclusion (contd.)</h1>
+<ul class="incremental">
 <li><em>Removing duplication</em>: Generalizing to higher-levels allow DRY to apply not only on functions but also on control structures and &quot;shape&quot; of the system</li>
-<li>Focusing on the <em>Domain</em>: First define core arrows, those that are part of the domain you are working on ; then apply functors and transformations to <em>lift</em> from core domain to a more complex behaviours (error handling, logging, interfacing with the outside world)</li>
+<li><em>Focusing on the Domain</em>: First define core arrows, those that are part of the domain you are working on ; then apply functors and transformations to <em>lift</em> from core domain to a more complex behaviours (error handling, logging, interfacing with the outside world)</li>
 </ul>
 </section>
 <section class="slide">
@@ -275,6 +299,7 @@
 <li><a href="http://www.disi.unige.it/person/MoggiE/ftp/ic91.pdf">Notions of Computations and Monads</a></li>
 <li><a href="http://blog.joda.org/2011/11/scala-feels-like-ejb-2-and-other.html?showComment=1321986456857#c1028446403700470017">Scala is like EJB 3</a></li>
 <li><a href="">The Categorical Abstract Machine</a></li>
+<li><a href="http://haskell.org/haskellwiki/Typeclassopedia">Typeclassopedia</a></li>
 </ul>
 </section>
 <section class="slide">
@@ -283,7 +308,19 @@
 <li><a href="http://en.wikipedia.org/wiki/File:Himnastigi.jpg">Bath's Jacob's Ladder</a></li>
 <li><a href="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg/822px-Augsburg_Barf%C3%BC%C3%9Ferkirche_013.jpg">Augsburg Barfüßerkirche</a></li>
 <li><a href="http://www.felixl.de/commu.pdf">Drawing commutative diagrams in Latex with TikZ</a></li>
+<li><a href="http://fr.wikipedia.org/wiki/Fichier:Montpellier_HotelVille_chantier_24052009b.JPG">Chantier de l'hôtel de Ville de Montpellier</a></li>
+<li><a href="http://4.bp.blogspot.com/-Fr0QXP65ook/Tg5eZZxTSaI/AAAAAAAAAG4/6LgvdRHPHvE/s1600/rene_magritte-la_trahison_des_images-1300px.jpg">La trahison des images, R.Magritte</a></li>
+<li><a href="http://katmat.math.uni-bremen.de/acc/acc.pdf">The joy of cats</a></li>
+<li><a href="http://www.histoiredelart.net/artistes/XV/tableaux_bosch/Bosch-Jardin_des_delices-1504.jpg">Le jardin des délices</a></li>
+<li><a href="http://www.dinosoria.com/foret-1/images/foret_jpg.jpg">Forest</a></li>
+<li><a href="http://everydaybipolar.files.wordpress.com/2011/09/jungle2.jpg">Jungle</a></li>
 </ul>
+</section>
+<section class="slide">
+<h1 id="this-is-the-end...">This is the end...</h1>
+<figure>
+<img src="figures/cheshire2.jpg" /><figcaption></figcaption>
+</figure>
 </section>
 <!-- {{{{ *****************  DZSlides CORE 2.0b1 *************************** -->
 <!-- *********************************************************************** -->
