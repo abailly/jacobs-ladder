@@ -1,5 +1,7 @@
 package com.foldlabs.category;
 
+import static com.foldlabs.category.DatabaseOperations.unit;
+
 import java.sql.SQLException;
 
 import com.foldlabs.category.OrderOperations.Order;
@@ -22,7 +24,7 @@ public class InventoryOperations {
       public DatabaseOperations<Invoice> execute(Order order) {
         Invoice invoice = createInvoice(order);
         depleteInventoryWithItems(order, invoice.getInvoiceKey());
-        return new DatabaseOperations.Return<InventoryOperations.Invoice>(invoice);
+        return unit(invoice);
       }
     };
   }

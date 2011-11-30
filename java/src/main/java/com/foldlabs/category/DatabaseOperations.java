@@ -11,7 +11,7 @@ import javax.sql.ConnectionPoolDataSource;
 
 public abstract class DatabaseOperations<A> {
   
-  public static class Return<A> extends DatabaseOperations<A> {
+  private static class Return<A> extends DatabaseOperations<A> {
     
     private final A a;
     
@@ -46,8 +46,7 @@ public abstract class DatabaseOperations<A> {
   private HashMap<String,Object> _db;
   private ConnectionPoolDataSource dbPool;
   
-  public <B> DatabaseOperations<B> bind(Command<A,DatabaseOperations<B>> command)
-      throws SQLException {
+  public <B> DatabaseOperations<B> bind(Command<A,DatabaseOperations<B>> command) throws SQLException {
     return new Bind<A,B>(this, command);
   }
   
@@ -99,6 +98,10 @@ public abstract class DatabaseOperations<A> {
     boolean transactionState = c.getAutoCommit();
     c.setAutoCommit(false);
     return transactionState;
+  }
+  
+  public static <A> DatabaseOperations<A> unit(A a) {
+    return new Return<A>(a);
   }
   
 }
