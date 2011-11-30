@@ -30,16 +30,16 @@
 ![](figures/magritte2.jpg)
 
 # What is Category Theory?
-- A mathematical formalism created by *S.Eilenberg* and *J.MacLane* in the
+- A mathematical formalism created by *S.Eilenberg* and *S.Mac Lane* in the
   40's to unify various phenomena scattered throughout various
-  fields of mathematics.  
+  fields of mathematics
 - Sometimes dubbed abstract nonsense by more down-to-earth
   mathematicians...  
 - Developed in the 50's and 60's in the field of algebraic topology by
   people like *A.Grothendiek*, and since the 70's in Computer science to
   model various things related to computability 
    
-# So What is a Category?
+# What is a Category?
 
 ![](figures/joyofcats2.jpg)
 
@@ -50,7 +50,6 @@
 - Here is a faithful analogy: A category is the transitive closure of a
   (possibly infinite) *directed graph*, with some additional
   properties
-- Some categories are special (eg. *Set*)
 
 # "Well-known" Categories 
 
