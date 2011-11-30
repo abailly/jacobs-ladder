@@ -11,15 +11,9 @@ public class Billing {
     DatabaseOperations db = new DatabaseOperations();
     final OrderOperations operations = new OrderOperations();
     final InventoryOperations inventory = new InventoryOperations();
-    db.wrapInTransaction(new Command() {
-      
-      @Override
-      public void execute() throws SQLException {
-        operations.addOrderFrom(cart, userName, order);
-        inventory.prepareDispatching(cart, userName, order);
-      }
-      
-    });
-    
+    /* @formatter: off */
+    db.bind(operations.addOrderFrom(cart, userName, order))
+      .bind(inventory.prepareDispatching(cart, userName, order))
+      .commit();
   }
 }

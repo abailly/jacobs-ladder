@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.sql.ConnectionPoolDataSource;
 
@@ -13,15 +14,22 @@ public class DatabaseOperations {
   
   private HashMap<String,Object> _db;
   private ConnectionPoolDataSource dbPool;
-
+  private List<Command> commands;
+  
   public DatabaseOperations() {
     super();
   }
-
-  public void wrapInTransaction(Command command) throws SQLException {
+  
+  public DatabaseOperations bind(Command command) throws SQLException {
+    this.commands.add(command);
+    return this;
+  }
+  
+  public void commit() throws SQLException {
     setupDataInfrastructure();
     try {
-      command.execute();
+      for (Command command : commands)
+        command.execute();
       completeTransaction();
     } catch (SQLException sqlx) {
       rollbackTransaction();
@@ -30,14 +38,14 @@ public class DatabaseOperations {
       cleanUp();
     }
   }
-
+  
   private void setupDataInfrastructure() throws SQLException {
     _db = new HashMap<String,Object>();
     Connection c = dbPool.getPooledConnection().getConnection();
     _db.put("connection", c);
     _db.put("transaction state", Boolean.valueOf(setupTransactionStateFor(c)));
   }
-
+  
   private void cleanUp() throws SQLException {
     Connection connection = (Connection) _db.get("connection");
     boolean transactionState = ((Boolean) _db.get("transation state")).booleanValue();
@@ -50,15 +58,15 @@ public class DatabaseOperations {
     if (ps != null) ps.close();
     if (rs != null) rs.close();
   }
-
+  
   private void rollbackTransaction() throws SQLException {
     ((Connection) _db.get("connection")).rollback();
   }
-
+  
   private void completeTransaction() throws SQLException {
     ((Connection) _db.get("connection")).commit();
   }
-
+  
   private boolean setupTransactionStateFor(Connection c) throws SQLException {
     boolean transactionState = c.getAutoCommit();
     c.setAutoCommit(false);
