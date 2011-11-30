@@ -26,7 +26,7 @@ public abstract class DatabaseOperations<A> {
     
   }
   
-  public static class Bind<A,B> extends DatabaseOperations<B> {
+  private static class Bind<A,B> extends DatabaseOperations<B> {
     
     private final DatabaseOperations<A> a;
     private final Command<A,DatabaseOperations<B>> command;
@@ -46,11 +46,13 @@ public abstract class DatabaseOperations<A> {
   private HashMap<String,Object> _db;
   private ConnectionPoolDataSource dbPool;
   
-  public <B> DatabaseOperations<B> bind(Command<A,DatabaseOperations<B>> command) throws SQLException {
-    return new Bind<A,B>(this, command);
+  public static <A> DatabaseOperations<A> unit(A a) {
+    return new Return<A>(a);
   }
   
-  protected abstract A run() throws SQLException;
+  public final <B> DatabaseOperations<B> bind(Command<A,DatabaseOperations<B>> command) throws SQLException {
+    return new Bind<A,B>(this, command);
+  }
   
   public final A commit() throws SQLException {
     setupDataInfrastructure();
@@ -66,14 +68,16 @@ public abstract class DatabaseOperations<A> {
     }
   }
   
-  protected void setupDataInfrastructure() throws SQLException {
+  protected abstract A run() throws SQLException;
+  
+  private void setupDataInfrastructure() throws SQLException {
     _db = new HashMap<String,Object>();
     Connection c = dbPool.getPooledConnection().getConnection();
     _db.put("connection", c);
     _db.put("transaction state", Boolean.valueOf(setupTransactionStateFor(c)));
   }
   
-  protected void cleanUp() throws SQLException {
+  private void cleanUp() throws SQLException {
     Connection connection = (Connection) _db.get("connection");
     boolean transactionState = ((Boolean) _db.get("transation state")).booleanValue();
     Statement s = (Statement) _db.get("statement");
@@ -86,7 +90,7 @@ public abstract class DatabaseOperations<A> {
     if (rs != null) rs.close();
   }
   
-  protected void rollbackTransaction() throws SQLException {
+  private void rollbackTransaction() throws SQLException {
     ((Connection) _db.get("connection")).rollback();
   }
   
@@ -98,10 +102,6 @@ public abstract class DatabaseOperations<A> {
     boolean transactionState = c.getAutoCommit();
     c.setAutoCommit(false);
     return transactionState;
-  }
-  
-  public static <A> DatabaseOperations<A> unit(A a) {
-    return new Return<A>(a);
   }
   
 }
