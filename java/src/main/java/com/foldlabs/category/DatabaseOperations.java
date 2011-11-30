@@ -11,10 +11,6 @@ import javax.sql.ConnectionPoolDataSource;
 
 public class DatabaseOperations {
   
-  public static interface Command {
-    void execute();
-  }
-
   private HashMap<String,Object> _db;
   private ConnectionPoolDataSource dbPool;
 

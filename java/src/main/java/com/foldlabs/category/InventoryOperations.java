@@ -5,26 +5,27 @@ import java.sql.SQLException;
 import com.foldlabs.category.OrderOperations.Order;
 import com.foldlabs.category.OrderOperations.ShoppingCart;
 
-public class InventoryOperations extends DatabaseOperations {
+public class InventoryOperations {
   
   public class Invoice {
-
+    
     public Object getInvoiceKey() {
       // TODO Auto-generated method stub
       return null;
     }
-
+    
   }
   
-  public void prepareDispatching(final ShoppingCart cart, final String userName, final Order order) throws SQLException {
-    wrapInTransaction(new Command() {
+  public Command prepareDispatching(final ShoppingCart cart, final String userName, final Order order)
+      throws SQLException {
+    return new Command() {
       
       @Override
       public void execute() {
         Invoice invoice = createInvoice(order);
         depleteInventoryWithItems(cart, invoice.getInvoiceKey());
       }
-    });
+    };
   }
   
   protected void depleteInventoryWithItems(ShoppingCart cart, Object orderKey) {

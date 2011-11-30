@@ -3,7 +3,7 @@ package com.foldlabs.category;
 import java.sql.SQLException;
 
 
-public class OrderOperations extends DatabaseOperations {
+public class OrderOperations {
   
   public static class Order {
     
@@ -17,13 +17,13 @@ public class OrderOperations extends DatabaseOperations {
 
   }
   
-  public void addOrderFrom(final ShoppingCart cart, final String userName, final Order order) throws SQLException {
-    wrapInTransaction(new Command() {
+  public Command addOrderFrom(final ShoppingCart cart, final String userName, final Order order) throws SQLException {
+    return new Command() {
       public void execute() {
         add(order, userKeyBasedOn(userName));
         addLineItemsFrom(cart, order.getOrderKey());
       }
-    });
+    };
   }
   
   public void addLineItemsFrom(ShoppingCart cart, Object orderKey) {
