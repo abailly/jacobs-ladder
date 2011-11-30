@@ -2,7 +2,6 @@ package com.foldlabs.category;
 
 import java.sql.SQLException;
 
-
 public class OrderOperations {
   
   public static class Order {
@@ -17,11 +16,13 @@ public class OrderOperations {
 
   }
   
-  public Command addOrderFrom(final ShoppingCart cart, final String userName, final Order order) throws SQLException {
-    return new Command() {
-      public void execute() {
+  public Command<ShoppingCart,DatabaseOperations<Order>> addOrderFrom(final String userName) throws SQLException {
+    return new Command<ShoppingCart,DatabaseOperations<Order>>() {
+      public DatabaseOperations<Order> execute(ShoppingCart cart) {
+        Order order = createOrder(cart, userName);
         add(order, userKeyBasedOn(userName));
         addLineItemsFrom(cart, order.getOrderKey());
+        return new DatabaseOperations.Return<Order>(order);
       }
     };
   }
@@ -39,5 +40,9 @@ public class OrderOperations {
   private Object userKeyBasedOn(String userName) {
     // TODO Auto-generated method stub
     return null;
+  }
+  
+  private Order createOrder(ShoppingCart cart, String userName) {
+    return new Order();
   }
 }

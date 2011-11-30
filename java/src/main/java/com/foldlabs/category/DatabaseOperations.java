@@ -6,31 +6,59 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.sql.ConnectionPoolDataSource;
 
-public class DatabaseOperations {
+public abstract class DatabaseOperations<A> {
+  
+  public static class Return<A> extends DatabaseOperations<A> {
+    
+    private final A a;
+    
+    public Return(A a) {
+      this.a = a;
+    }
+    
+    @Override
+    protected A run() throws SQLException {
+      return a;
+    }
+    
+  }
+  
+  public static class Bind<A,B> extends DatabaseOperations<B> {
+    
+    private final DatabaseOperations<A> a;
+    private final Command<A,DatabaseOperations<B>> command;
+    
+    public Bind(DatabaseOperations<A> a, Command<A,DatabaseOperations<B>> command) {
+      this.a = a;
+      this.command = command;
+    }
+    
+    protected B run() throws SQLException {
+      DatabaseOperations<B> txA = command.execute(a.run());
+      return txA.run();
+    }
+    
+  }
   
   private HashMap<String,Object> _db;
   private ConnectionPoolDataSource dbPool;
-  private List<Command> commands;
   
-  public DatabaseOperations() {
-    super();
+  public <B> DatabaseOperations<B> bind(Command<A,DatabaseOperations<B>> command)
+      throws SQLException {
+    return new Bind<A,B>(this, command);
   }
   
-  public DatabaseOperations bind(Command command) throws SQLException {
-    this.commands.add(command);
-    return this;
-  }
+  protected abstract A run() throws SQLException;
   
-  public void commit() throws SQLException {
+  public final A commit() throws SQLException {
     setupDataInfrastructure();
     try {
-      for (Command command : commands)
-        command.execute();
+      A a = run();
       completeTransaction();
+      return a;
     } catch (SQLException sqlx) {
       rollbackTransaction();
       throw sqlx;
@@ -39,14 +67,14 @@ public class DatabaseOperations {
     }
   }
   
-  private void setupDataInfrastructure() throws SQLException {
+  protected void setupDataInfrastructure() throws SQLException {
     _db = new HashMap<String,Object>();
     Connection c = dbPool.getPooledConnection().getConnection();
     _db.put("connection", c);
     _db.put("transaction state", Boolean.valueOf(setupTransactionStateFor(c)));
   }
   
-  private void cleanUp() throws SQLException {
+  protected void cleanUp() throws SQLException {
     Connection connection = (Connection) _db.get("connection");
     boolean transactionState = ((Boolean) _db.get("transation state")).booleanValue();
     Statement s = (Statement) _db.get("statement");
@@ -59,7 +87,7 @@ public class DatabaseOperations {
     if (rs != null) rs.close();
   }
   
-  private void rollbackTransaction() throws SQLException {
+  protected void rollbackTransaction() throws SQLException {
     ((Connection) _db.get("connection")).rollback();
   }
   

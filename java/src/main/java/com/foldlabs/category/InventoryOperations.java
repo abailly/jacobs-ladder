@@ -3,7 +3,6 @@ package com.foldlabs.category;
 import java.sql.SQLException;
 
 import com.foldlabs.category.OrderOperations.Order;
-import com.foldlabs.category.OrderOperations.ShoppingCart;
 
 public class InventoryOperations {
   
@@ -16,19 +15,19 @@ public class InventoryOperations {
     
   }
   
-  public Command prepareDispatching(final ShoppingCart cart, final String userName, final Order order)
-      throws SQLException {
-    return new Command() {
+  public Command<Order,DatabaseOperations<Invoice>> prepareDispatching(final String userName) throws SQLException {
+    return new Command<Order,DatabaseOperations<Invoice>>() {
       
       @Override
-      public void execute() {
+      public DatabaseOperations<Invoice> execute(Order order) {
         Invoice invoice = createInvoice(order);
-        depleteInventoryWithItems(cart, invoice.getInvoiceKey());
+        depleteInventoryWithItems(order, invoice.getInvoiceKey());
+        return new DatabaseOperations.Return<InventoryOperations.Invoice>(invoice);
       }
     };
   }
   
-  protected void depleteInventoryWithItems(ShoppingCart cart, Object orderKey) {
+  protected void depleteInventoryWithItems(Order order, Object orderKey) {
     // TODO Auto-generated method stub
   }
   
