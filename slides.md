@@ -5,12 +5,12 @@
 # Agenda
 
 - Intro
-- Category Theory - Part I
 - Interlude I
-- Category Theory - Part II
+- Category Theory - Part I
 - Interlude II
-- Discussion
+- Category Theory - Part II
 - Outro
+- Discussion
 
 # Introduction
 
@@ -58,6 +58,16 @@
 - **Hask**: Category of Haskell types
 - **CAM**: Categorical abstract machine, a practical compilation scheme for ML languages
 
+# Interlude I
+
+# FooBarQix 
+
+- Construct (or _deconstruct_) the function **FooBarQix** as proposed
+  on [Code Story](http://www.code-story.net/2011/11/16/foobarqix.html)
+- Use only arrows and objects
+- Assume we work in a well-behaved category
+- Refine a function till you drop
+
 # Constructions In Categories
 
 - **Product**: Allows *tupling* of objects and arrows
@@ -74,16 +84,6 @@
     case analysis
 - **0**, **1**  ⟶ Special values (*null*, *undefined*)
     
-# Interlude I
-
-# FooBarQix 
-
-- Construct (or _deconstruct_) the function **FooBarQix** as proposed
-  on [Code Story](http://www.code-story.net/2011/11/16/foobarqix.html)
-- Use only arrows and objects
-- Assume we work in a well-behaved category
-- Refine a function till you drop
-
 # More Constructions
 
 ![](figures/foret2.jpg)
@@ -119,6 +119,27 @@ into an intermediate form suitable for compilation to low-level
 languages (eg. C, assembly...)
 - Rests on the concept of a cartesian closed category: A category with
   all limits and exponentiation.
+
+# Interlude II
+
+# The Composed Method pattern
+
+- Reference is
+  [Neal Ford](http://www.ibm.com/developerworks/java/library/j-eaed4/index.html)'s
+  article: It applies *Composed Method* pattern and *Single Level
+  Abstraction Principle* to standard JDBC reading problems
+- How to compose composed methods with transactionality? Proposed
+  refactoring falls short of allowing *composition of method within a
+  transactional context* 
+- Can we do better?
+
+# LINQ Providers
+
+- [Erik Meijer about LINQ](http://cacm.acm.org/magazines/2011/10/131398-the-world-according-to-linq/fulltext)
+- LINQ uses monads' *flatMap* (aka. *bind*) to construct **queries**
+  over various datatypes, including relational structures 
+- The various keywords of the SQLish language (SELECT, FROM, WHERE)
+  are just instances of (a → m b) which are chained in the monad
 
 # Even More Constructions
 
@@ -174,27 +195,6 @@ on futures: g = f <$> a : F (B → C) ⟶ g <*> b : F C
 
 - Monads are a  way to express *computations over values* categorically
 - Monad tutorials is a _genre_ in itself within FP community!
-
-# Interlude II
-
-# The Composed Method pattern
-
-- Reference is
-  [Neal Ford](http://www.ibm.com/developerworks/java/library/j-eaed4/index.html)'s
-  article: It applies *Composed Method* pattern and *Single Level
-  Abstraction Principle* to standard JDBC reading problems
-- How to compose composed methods with transactionality? Proposed
-  refactoring falls short of allowing *composition of method within a
-  transactional context* 
-- Can we do better?
-
-# LINQ Providers
-
-- [Erik Meijer about LINQ](http://cacm.acm.org/magazines/2011/10/131398-the-world-according-to-linq/fulltext)
-- LINQ uses monads' *flatMap* (aka. *bind*) to construct **queries**
-  over various datatypes, including relational structures 
-- The various keywords of the SQLish language (SELECT, FROM, WHERE)
-  are just instances of (a → m b) which are chained in the monad
 
 # This is not the end...
 
