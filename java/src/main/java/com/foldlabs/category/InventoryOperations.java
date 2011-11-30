@@ -11,8 +11,7 @@ public class InventoryOperations {
   public class Invoice {
     
     public Object getInvoiceKey() {
-      // TODO Auto-generated method stub
-      return null;
+      return 12;
     }
     
   }
@@ -34,8 +33,7 @@ public class InventoryOperations {
   }
   
   protected Invoice createInvoice(Order order) {
-    // TODO Auto-generated method stub
-    return null;
+    return new Invoice();
   }
   
 }

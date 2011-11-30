@@ -8,15 +8,14 @@ import com.foldlabs.category.OrderOperations.ShoppingCart;
 
 public class Billing {
   
-  public void placeOrder(final ShoppingCart cart, final String userName) throws SQLException {
-    DatabaseOperations<ShoppingCart> db = unit(cart);
+  public void placeOrder(DatabaseConnection databaseConnection, final ShoppingCart cart, final String userName) throws SQLException {
     final OrderOperations order = new OrderOperations();
     final InventoryOperations inventory = new InventoryOperations();
     /* @formatter:off */
-    db.bind(order.createOrder(userName))
+    unit(cart).bind(order.createOrder(userName))
       .bind(order.addOrderFrom(userName))
       .bind(inventory.prepareDispatching(userName))
-      .commit();
+      .commit(databaseConnection);
     /* @formatter:on */
   }
 }

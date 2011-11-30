@@ -1,15 +1,8 @@
 package com.foldlabs.category;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
 
-import javax.sql.ConnectionPoolDataSource;
-
-public abstract class DatabaseOperations<A> {
+public abstract class DatabaseOperations<A> extends DatabaseConnection {
   
   private static class Return<A> extends DatabaseOperations<A> {
     
@@ -43,9 +36,6 @@ public abstract class DatabaseOperations<A> {
     
   }
   
-  private HashMap<String,Object> _db;
-  private ConnectionPoolDataSource dbPool;
-  
   public static <A> DatabaseOperations<A> unit(A a) {
     return new Return<A>(a);
   }
@@ -54,54 +44,20 @@ public abstract class DatabaseOperations<A> {
     return new Bind<A,B>(this, command);
   }
   
-  public final A commit() throws SQLException {
-    setupDataInfrastructure();
+  public final A commit(DatabaseConnection db) throws SQLException {
+    db.setupDataInfrastructure();
     try {
       A a = run();
-      completeTransaction();
+      db.completeTransaction();
       return a;
     } catch (SQLException sqlx) {
-      rollbackTransaction();
+      db.rollbackTransaction();
       throw sqlx;
     } finally {
-      cleanUp();
+      db.cleanUp();
     }
   }
   
   protected abstract A run() throws SQLException;
-  
-  private void setupDataInfrastructure() throws SQLException {
-    _db = new HashMap<String,Object>();
-    Connection c = dbPool.getPooledConnection().getConnection();
-    _db.put("connection", c);
-    _db.put("transaction state", Boolean.valueOf(setupTransactionStateFor(c)));
-  }
-  
-  private void cleanUp() throws SQLException {
-    Connection connection = (Connection) _db.get("connection");
-    boolean transactionState = ((Boolean) _db.get("transation state")).booleanValue();
-    Statement s = (Statement) _db.get("statement");
-    PreparedStatement ps = (PreparedStatement) _db.get("prepared statement");
-    ResultSet rs = (ResultSet) _db.get("result set");
-    connection.setAutoCommit(transactionState);
-    connection.close();
-    if (s != null) s.close();
-    if (ps != null) ps.close();
-    if (rs != null) rs.close();
-  }
-  
-  private void rollbackTransaction() throws SQLException {
-    ((Connection) _db.get("connection")).rollback();
-  }
-  
-  private void completeTransaction() throws SQLException {
-    ((Connection) _db.get("connection")).commit();
-  }
-  
-  private boolean setupTransactionStateFor(Connection c) throws SQLException {
-    boolean transactionState = c.getAutoCommit();
-    c.setAutoCommit(false);
-    return transactionState;
-  }
   
 }
